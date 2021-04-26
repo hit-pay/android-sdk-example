@@ -1,0 +1,270 @@
+<resources>
+    <string name="app_name">HitPay</string>
+
+    <!-- Login-->
+    <string name="signup_message">Create an Account</string>
+    <string name="login_message">Login</string>
+    <string name="have_account_message">Have an account ?Login</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="login_with_username">Login with username / email</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Passcode</string>
+    <string name="forgot_password">Forgot Passcode?</string>
+    <string name="not_you">Not You?</string>
+    <string name="reset_password">Input your HitPay registered email address to reset your passcode</string>
+    <string name="next">NEXT</string>
+
+
+    <!--sign up-->
+    <string name="full_name">Full Name (As per NRIC / Passport)</string>
+    <string name="mobile_number">Mobile Number   </string>
+    <string name="passcode">4 Digit Passcode   </string>
+
+    <string name="sign_email_line_1">Email Verification</string>
+    <string name="sign_mobile_line_1">Mobile Verification</string>
+    <string name="sign_email_line_2">Step 1 of 2</string>
+    <string name="sign_mobile_line_2">Step 2 of 2</string>
+    <string name="sign_line_3">Enter your verification code below</string>
+    <string name="resend_code_">Resend verification code</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="or">OR</string>
+    <string name="re_enter_emil">Re-Enter Email Address</string>
+    <string name="re_enter_mobile">Re-Enter Mobile Number</string>
+
+
+    <string name="onboarding_0_1">HitPay POS allows you to collect business payments on the go, wherever your customers are</string>
+    <string name="onboarding_0_2">Swipe to learn more</string>
+
+    <string name="onboarding_1_1">All Major Payment Methods Supported</string>
+    <string name="onboarding_1_2">Sign up as a HitPay merchant and accept payments from business customers within minutes</string>
+
+    <string name="onboarding_2_1">No Recurring Fees. Only Pay Per Transaction</string>
+    <string name="onboarding_2_2">Sign up as HitPay customer to send and request payments from your mates  \n\nHitPay e-wallet works seemlessly with any Singapore Bank Account with PayNow and FAST bank transfers top ups</string>
+
+    <string name="onboarding_3_1">All Payments Processed using Best in Class Payment Security Standards</string>
+    <string name="onboarding_3_2">We value customer data and do not share your data with any third party\n\nHitpay uses best in class payments and security architecture with support for PCI and DSS gateway and biometric authentication</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="old_password">Old Passcode</string>
+    <string name="new_password">New Passcode</string>
+    <string name="login">Login</string>
+    <string name="singup">Sign Up</string>
+
+    <!--Home-->
+    <string name="pay">PAY</string>
+    <string name="done">DONE</string>
+    <string name="share">SHARE</string>
+    <string name="request">Request</string>
+    <string name="limit">Limit :</string>
+    <string name="top_up">Top Up Balance</string>
+    <string name="withdraw">SUBMIT REQUEST</string>
+    <string name="invite">SEND INVITE</string>
+    <string name="invite_heading">Get free cash up to $100 when you refer friends to try HitPay</string>
+    <string name="title_activity_home_drawer">HomeDrawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="enter_amount">ENTER AMOUNT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Settings-->
+    <string name="settings_acc">Account Settings</string>
+    <string name="settings_fa">Fingerprint Authentication</string>
+    <string name="settings_transfer_limit">Daily Transfer Limit</string>
+    <string name="settings_bal_alert">Low Balance Alert Threshold</string>
+    <string name="settings_pmt_rmdr">Pending Payments Reminder</string>
+    <string name="change_password">CHANGE PASSCODE</string>
+    <string name="four_password">4 Digit Passcode</string>
+    <string name="redeem">REDEEM</string>
+
+
+    <!--Top Up-->
+    <string name="TOP_UP_HEADING">Complete bank transfer using below details</string>
+    <string name="PAY_NOW_TOP_UP_HEADING">Complete PayNow Transfer from your Internet Banking Platform to the below mobile number</string>
+    <string name="TOP_UP_P1">* Enter your Mobile number under transaction description</string>
+    <string name="TOP_UP_P2">* Use FAST Bank Transfers</string>
+    <string name="TOP_UP_P3">* Top Up Processing Time : Within 10 mins between 9AM to 9PM</string>
+    <string name="TOP_UP_1_HEADING">ADD HITPAY AS A PAYEE</string>
+    <string name="TOP_UP_1_BODY_1">Add HitPay as a new payee in your bank\'s mobile / internet banking platform. </string>
+    <string name="TOP_UP_1_BODY_2">Enter your Mobile Number under \'My Initials\' or \'Display Name\'</string>
+
+    <string name="TOP_UP_2_HEADING">ADD ACCOUNT DETAILS</string>
+    <string name="bank">Bank</string>
+    <string name="acc_name">Account Name</string>
+    <string name="acc_no">Account Number</string>
+    <string name="bank_dbs">DBS</string>
+    <string name="pay_now_number">+65 98644718</string>
+    <string name="acc_name_ezy">HitPay</string>
+    <string name="acc_no_value">0039366671</string>
+    <string name="pay_now_des_1">*PayNow Top Ups on HitPay require that your <b>Bank Account First Name</b> and <b>Last Name</b> matches your <b>HitPay Account First Name and Last Name</b> </string>
+    <string name="pay_now_des_2">*PayNow Top Ups are supported for customers of Citibank, DBS/POSB, HSBC, MayBank, OCBC, Bank of China, ICBC  and Standard Chartered.</string>
+    <string name="pay_now_title">PayNow \nInstant Topup)</string>
+    <string name="fast_transfer_title">FAST \nTopUp Within 10 Minutes</string>
+
+    <string name="TOP_UP_3_HEADING">COMPLETE TRANSFER</string>
+    <string name="TOP_UP_3_BODY_1">Transfer top up amount to HitPay</string>
+    <string name="TOP_UP_3_BODY_2">Enter your Mobile number under transaction description</string>
+    <string name="TOP_UP_3_BODY_3">TOP UP PROCESSING TIME \n Within 30 Mins Between 9AM - 9PM</string>
+
+    <string name="processing_tim">TOP UP PROCESSING TIME</string>
+    <string name="processing_tim_1">DBS and FAST Bank Transfers</string>
+    <string name="processing_tim_2">Within 1 Working Day</string>
+    <string name="processing_tim_3">Other Bank Account Transfers</string>
+    <string name="processing_tim_4">1-2 Working Days</string>
+    <string name="terms">By signing up, I accept the <u>terms and conditions</u></string>
+
+    <!--Transaction-->
+    <string name="transaction_tip">Tip :\n Clicking on the more button provides additional options</string>
+    <string name="expected_payout_date">Expected Payout Date</string>
+    <string name="send_email_receipt">Send Email Receipt</string>
+
+    <!--Tutorial -->
+    <string name="tutorial_1">Track and Monitor Transactions</string>
+    <string name="tutorial_2">Advanced Payments Notifications</string>
+    <string name="tutorial_3">Lightning Fast Payments</string>
+    <string name="tutorial_4">Industry Grade Security</string>
+    <string name="tutorial_2_1">Send or request money to/from phone contacts or any mobile number</string>
+
+
+    <string-array name="bank_list">
+        <item>DBS</item>
+        <item>POSB</item>
+        <item>OCBC</item>
+    </string-array>
+
+    <string-array name="payment_mode">
+        <item>Card</item>
+        <item>AliPay</item>
+    </string-array>
+
+
+    <!--barcode-->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+
+    <!--Credit card-->
+    <string name="card_number">Card Number</string>
+    <string name="add_card_caps">ADD CARD</string>
+    <string name="payment_footer">Card payments accepted at participating merchants only. \n \n Card payments processed by Stripe</string>
+
+
+    <!--keyboard-->
+
+
+    <string name="ime_name">Sample Soft Keyboard</string>
+
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|&quot;</string>
+
+    <!-- Labels on soft keys -->
+    <string name="label_go_key">Go</string>
+    <string name="label_next_key">Next</string>
+    <string name="label_send_key">Send</string>
+
+    <!-- Labels for subtype -->
+    <string name="label_subtype_generic">%s</string>
+    <string name="label_subtype_en_GB">English (GB)</string>
+    <string name="label_subtype_hitpay">HitPay</string>
+
+    <!-- Titles for ImePreference -->
+    <string name="settings_name">Sample Soft Keyboard Settings</string>
+    <string name="language_selection_title">Input languages</string>
+    <string name="select_language">Select input languages</string>
+    <string name="general_category">General</string>
+    <string name="title_activity_nfcreader">NFCReaderActivity</string>
+
+    <!--NFc-->
+    <string name="transaction_success">Transaction Successful</string>
+    <string name="transaction_fail">Transaction Failed</string>
+    <string name="stripe_connect_details">Create a new Stripe Account or link an existing Stripe Account to start accepting card payments on HitPay</string>
+
+    <string name="payouts_header">Stripe Payouts displayed below.\nEdit/View bank account at https://dashboard.stripe.com</string>
+    <string name="promo_des">Share/Copy the referral link with your contacts from the button below\n\n*The referred user must charge a minimum cumulative amount of SGD$100 on HitPay to qualify as successful referral.\n\nExample: If you successfully refer 20 users on HitPay, you pay SGD$0 payment fee for the next SGD$2000 you charge on HitPay</string>
+
+    <string-array name="month_array">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sept</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+
+    <string-array name="year_array">
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+    </string-array>
+
+    <string name="msg_complete_order">Enter message to buyer or shipping details</string>
+
+    <string name="mirgration_title">We have updated our platform to introduce a whole new set of business tools to power your business</string>
+    <string name="mirgration_detail">HitPay Terminal HitPay\nE-Commerce Payment Gateway\nHitPay Invoicing\nHitPay E-Commerce Platform\nHitPay Instagram Checkouts\nShopify \u0026 Xero Integrations\nand a whole lot more...</string>
+    <string name="mirgration_next">NEXT</string>
+    <string name="new_login_title">Create A New HitPay Login</string>
+    <string name="new_login_detail">This is <b>mandatory</b> and you will login to HitPay on mobile and desktop using the newly created credentials.\n\n<b>You will no longer login to HitPay using Stripe details</b> and this has no impact on your old transaction data on HitPay.</string>
+
+    //Terminal
+    <string name="cancel">Cancel</string>
+    <string name="check_for_update">Check for update</string>
+    <string name="checking_for_update">Checking for update</string>
+    <string name="chipper_2x">Chipper 2X</string>
+    <string name="bluetooth_scan">BLUETOOTH SCAN</string>
+    <string name="collect_card_payment">Collect card payment</string>
+    <string name="collect_payment">Collect payment</string>
+    <string name="collect_payment_description">Collect a card payment using a physical Stripe test card and the Chipper 2X</string>
+    <string name="common_workflows">COMMON WORKFLOWS</string>
+    <string name="connecting">Connecting...</string>
+    <string name="currency">CURRENCY</string>
+    <string name="current_version">CURRENT VERSION</string>
+    <string name="default_amount_int">100</string>
+    <string name="default_amount_string">$1.00</string>
+    <string name="device_type">DEVICE TYPE</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="discovery">Discovery</string>
+    <string name="discover_readers">Discover Readers</string>
+    <string name="empty_reader">Empty Reader</string>
+    <string name="event_log">EVENT LOG</string>
+    <string name="install_explanation">Version %1$s available. The reader will become unresponsive until the update is complete. Estimated update time: %2$s.</string>
+    <string name="install_update">Install update</string>
+    <string name="installation_in_progress">The reader will temporarily become unresponsive. Do not leave this page, and keep the reader in range and powered on until the update is complete.</string>
+    <string name="nearby_readers">NEARBY READERS</string>
+    <string name="no_reader">No reader connected</string>
+    <string name="no_update_available">No update available</string>
+    <string name="read_card_for_recurring_payment">Read card for recurring payment</string>
+    <string name="reader">Reader</string>
+    <string name="reader_connection">READER CONNECTION</string>
+    <string name="reader_description">%1$s %2$s</string>
+    <string name="simulated">Simulated</string>
+    <string name="simulation_explanation">The SDK comes with the ability to simulate behavior without using physical hardware. This makes it easy to quickly test your integration end-to-end, from connecting a reader to taking payments.</string>
+    <string name="terminal">Terminal</string>
+    <string name="testing">Testing</string>
+    <string name="update_complete">Update complete</string>
+    <string name="update_explanation">Check if a reader software update is available.</string>
+    <string name="update_in_progress">Update in progress</string>
+    <string name="update_progress">Update progress: %1$s%%</string>
+    <string name="update_reader">Update Reader</string>
+    <string name="update_reader_software">Update reader software</string>
+</resources>

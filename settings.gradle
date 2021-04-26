@@ -1,0 +1,3 @@
+include ':HitpayTerminalSDK'
+include ':sample'
+rootProject.name = "Hitpay Terminal SDK Sample"
