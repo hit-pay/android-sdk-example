@@ -139,7 +139,6 @@ public class SignUpPage2Activity extends AppCompatActivity {
                     @Override
                     public void run() {
                         endLoading();
-                        HitpayUtil.showUpdateDialog(SignUpPage2Activity.this);
                     }
                 });
             }

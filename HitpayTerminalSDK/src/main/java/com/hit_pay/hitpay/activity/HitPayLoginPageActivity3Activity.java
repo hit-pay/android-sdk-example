@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.hit_pay.hitpay.ClientAPI.HitPayAPI;
+import com.hit_pay.hitpay.ClientAPI.HitPayAuthenticationListener;
+import com.hit_pay.hitpay.ClientAPI.Hitpay;
 import com.hit_pay.hitpay.ClientAPI.OnComplete;
 import com.hit_pay.hitpay.Managers.AppManager;
 import com.hit_pay.hitpay.R;
@@ -74,8 +76,8 @@ public class HitPayLoginPageActivity3Activity extends AppCompatActivity {
                                         public void run() {
                                             endLoading();
                                             if (errorMessage == null) {
-                                                Toast.makeText(HitPayLoginPageActivity3Activity.this, "Login success", Toast.LENGTH_SHORT).show();
-
+                                                if (Hitpay.mListener != null)
+                                                    Hitpay.mListener.authenticationCompleted(true);
 //                                                Intent i = new Intent(LoginPage3Activity.this, HomeDrawerActivity.class);
 //                                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                                startActivity(i);
@@ -103,12 +105,6 @@ public class HitPayLoginPageActivity3Activity extends AppCompatActivity {
                                 }
                                 @Override
                                 public void needUpdate() {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            HitpayUtil.showUpdateDialog(HitPayLoginPageActivity3Activity.this);
-                                        }
-                                    });
                                 }
                             });
                         }
@@ -121,7 +117,6 @@ public class HitPayLoginPageActivity3Activity extends AppCompatActivity {
                     @Override
                     public void run() {
                         endLoading();
-                        HitpayUtil.showUpdateDialog(HitPayLoginPageActivity3Activity.this);
                     }
                 });
             }
