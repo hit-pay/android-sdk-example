@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Device Type"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/toolbar_text" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Widget.Example.Backdrop"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:id="@+id/ln_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="READERS"
+                android:paddingTop="40dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bluetooth"
+                style="@style/Widget.Example.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                app:cornerRadius="0dp"
+                android:text="Bluetooth Scan"
+                android:textAlignment="textStart"
+                app:iconTint="@color/colorPrimaryDark" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/internet"
+                style="@style/Widget.Example.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                app:cornerRadius="0dp"
+                android:text="Internet Scan"
+                android:background="@color/white"
+                android:textAlignment="textStart"
+                app:iconTint="@color/colorPrimaryDark" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cots_device"
+                style="@style/Widget.Example.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                app:cornerRadius="0dp"
+                android:text="Cots Device"
+                android:textAlignment="textStart"
+                app:iconTint="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

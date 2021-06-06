@@ -4,6 +4,7 @@
     <!-- International Orange in 500-->
     <color name="primaryColor">#000036</color>
     <color name="darkPrimaryColor">#000026</color>
+    <color name="colorPrimaryDark">#000026</color>
     <color name="lightPrimaryColor">#000036</color>
     <color name="white">#FFFFFF</color>
     <color name="gray_white">#EEEEEE</color>

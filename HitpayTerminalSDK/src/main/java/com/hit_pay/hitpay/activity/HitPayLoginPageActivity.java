@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HitPayLoginPageActivity extends AppCompatActivity {
+    public static HitPayLoginPageActivity instance = null;
 
     AppCompatEditText edtEmail;
     ImageView imgBack;
@@ -28,6 +29,7 @@ public class HitPayLoginPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_login_page_step1);
         edtEmail = findViewById(R.id.edt_email);
         imgBack = findViewById(R.id.img_back);

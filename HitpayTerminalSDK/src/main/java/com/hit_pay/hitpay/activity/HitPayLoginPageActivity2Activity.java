@@ -3,11 +3,13 @@ package com.hit_pay.hitpay.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
+
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -76,7 +78,7 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
 
     private void login() {
         startLoading();
-        new HitPayAPI(this).authLogin(getIntent().getStringExtra("EMAIL"), edtPassword.getText().toString(),  new OnComplete<JSONObject>() {
+        new HitPayAPI(this).authLogin(getIntent().getStringExtra("EMAIL"), edtPassword.getText().toString(), new OnComplete<JSONObject>() {
             @Override
             public void done(final JSONObject response, final String errorMessage) {
                 runOnUiThread(new Runnable() {
@@ -90,8 +92,8 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                 String token_type = response.getString("token_type");
                                 if (token_type.equals("Multi-factor")) {
                                     Intent i = new Intent(HitPayLoginPageActivity2Activity.this, HitPayLoginPageActivity3Activity.class);
-                                    i.putExtra("EMAIL",  getIntent().getStringExtra("EMAIL"));
-                                    i.putExtra("TOKEN",  response.getString("authentication_token"));
+                                    i.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
+                                    i.putExtra("TOKEN", response.getString("authentication_token"));
                                     startActivity(i);
                                 } else {
                                     HitPayAPI api = new HitPayAPI(HitPayLoginPageActivity2Activity.this);
@@ -103,8 +105,11 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                                 public void run() {
                                                     endLoading();
                                                     if (errorMessage == null) {
-                                                        if (Hitpay.mListener != null)
+                                                        if (Hitpay.mListener != null) {
                                                             Hitpay.mListener.authenticationCompleted(true);
+                                                            finish();
+                                                            if (HitPayLoginPageActivity.instance != null) HitPayLoginPageActivity.instance.finish();
+                                                        }
 //                                                        Intent i = new Intent(LoginPage2Activity.this, HomeDrawerActivity.class);
 //                                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                                        startActivity(i);
@@ -130,6 +135,7 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                                 }
                                             });
                                         }
+
                                         @Override
                                         public void needUpdate() {
                                         }
@@ -137,13 +143,17 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                if (Hitpay.mListener != null)
+                                if (Hitpay.mListener != null) {
                                     Hitpay.mListener.authenticationCompleted(false);
+                                    finish();
+                                    if (HitPayLoginPageActivity.instance != null) HitPayLoginPageActivity.instance.finish();
+                                }
                             }
                         }
                     }
                 });
             }
+
             @Override
             public void needUpdate() {
                 runOnUiThread(new Runnable() {
