@@ -105,8 +105,8 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                                 public void run() {
                                                     endLoading();
                                                     if (errorMessage == null) {
-                                                        if (Hitpay.mListener != null) {
-                                                            Hitpay.mListener.authenticationCompleted(true);
+                                                        if (Hitpay.hitPayAuthenticationListener != null) {
+                                                            Hitpay.hitPayAuthenticationListener.authenticationCompleted(true);
                                                             finish();
                                                             if (HitPayLoginPageActivity.instance != null) HitPayLoginPageActivity.instance.finish();
                                                         }
@@ -143,8 +143,8 @@ public class HitPayLoginPageActivity2Activity extends AppCompatActivity {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                if (Hitpay.mListener != null) {
-                                    Hitpay.mListener.authenticationCompleted(false);
+                                if (Hitpay.hitPayAuthenticationListener != null) {
+                                    Hitpay.hitPayAuthenticationListener.authenticationCompleted(false);
                                     finish();
                                     if (HitPayLoginPageActivity.instance != null) HitPayLoginPageActivity.instance.finish();
                                 }

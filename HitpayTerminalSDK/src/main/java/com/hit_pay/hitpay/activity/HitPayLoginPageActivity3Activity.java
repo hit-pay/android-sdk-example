@@ -76,8 +76,8 @@ public class HitPayLoginPageActivity3Activity extends AppCompatActivity {
                                         public void run() {
                                             endLoading();
                                             if (errorMessage == null) {
-                                                if (Hitpay.mListener != null)
-                                                    Hitpay.mListener.authenticationCompleted(true);
+                                                if (Hitpay.hitPayAuthenticationListener != null)
+                                                    Hitpay.hitPayAuthenticationListener.authenticationCompleted(true);
 //                                                Intent i = new Intent(LoginPage3Activity.this, HomeDrawerActivity.class);
 //                                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                                startActivity(i);

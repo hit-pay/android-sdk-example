@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.hitpay.hitpayterminalsdk"
+        applicationId "com.sample.hitpaysdk"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1

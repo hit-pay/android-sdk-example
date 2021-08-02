@@ -182,14 +182,14 @@ public class NewStripeConnectActivity extends AppCompatActivity {
                                         public void run() {
                                             endLoading();
                                             if (errorMessage == null) {
-                                                if (Hitpay.mListener != null)
-                                                    Hitpay.mListener.authenticationCompleted(true);
+                                                if (Hitpay.hitPayAuthenticationListener != null)
+                                                    Hitpay.hitPayAuthenticationListener.authenticationCompleted(true);
 //                                                Intent i = new Intent(NewStripeConnectActivity.this, HomeDrawerActivity.class);
 //                                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                                startActivity(i);
                                             } else {
-                                                if (Hitpay.mListener != null)
-                                                    Hitpay.mListener.authenticationCompleted(false);
+                                                if (Hitpay.hitPayAuthenticationListener != null)
+                                                    Hitpay.hitPayAuthenticationListener.authenticationCompleted(false);
                                             }
                                         }
                                     });

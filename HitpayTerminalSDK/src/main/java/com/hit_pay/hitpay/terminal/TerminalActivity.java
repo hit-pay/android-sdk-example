@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.hit_pay.hitpay.ClientAPI.Hitpay;
+import com.hit_pay.hitpay.activity.HitPayLoginPageActivity;
 import com.hit_pay.hitpay.terminal.fragment.TokenProvider;
 import com.hit_pay.hitpay.R;
 import com.hit_pay.hitpay.Util.HitpayUtil;
@@ -172,6 +173,9 @@ public class TerminalActivity extends AppCompatActivity implements NavigationLis
     @Override
     public void onConnectReader() {
         navigateTo(ConnectedReaderFragment.TAG, new ConnectedReaderFragment());
+        if (Hitpay.hitPayTerminalListener != null) {
+            Hitpay.hitPayTerminalListener.setupCompleted(true);
+        }
     }
 
     @Override
