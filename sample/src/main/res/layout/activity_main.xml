@@ -13,57 +13,74 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:text="HitPay Login" />
 
-    <Button
-        android:id="@+id/btn_connect_terminal"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:text="Connect Terminal" />
+        android:layout_marginEnd="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_connect_terminal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Connect Terminal" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/simulated_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:text="Simulated?"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_make_terminal_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:text="Make Terminal Payment (10.0 SGD)" />
+        android:layout_marginEnd="30dp"
+        android:text="Make Terminal Payment" />
 
     <Button
         android:id="@+id/btn_make_paynow_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:text="Make PayNow Payment (10.0 SGD)" />
+        android:layout_marginEnd="30dp"
+        android:text="Make PayNow Payment" />
 
     <LinearLayout
         android:id="@+id/ln_qr_paynow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:text="QR Url below:" />
 
         <TextView
             android:id="@+id/tv_qr_paynow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:text="" />
     </LinearLayout>
 
@@ -71,9 +88,9 @@
         android:id="@+id/btn_refund_charge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="30dp"
         android:text="Refund Charge" />
 
 </LinearLayout>

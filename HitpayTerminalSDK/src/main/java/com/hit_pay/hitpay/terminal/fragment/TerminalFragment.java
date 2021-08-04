@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.hit_pay.hitpay.ClientAPI.Hitpay;
 import com.hit_pay.hitpay.Managers.ApplicationPreferencesManager;
 import com.hit_pay.hitpay.R;
 import com.hit_pay.hitpay.Util.AppConstants;
@@ -81,7 +82,7 @@ public class TerminalFragment extends Fragment {
             final FragmentActivity activity = getActivity();
             if (activity instanceof NavigationListener) {
 //                ((NavigationListener) activity).onRequestDiscovery(viewModel.simulated.getValue());
-                ((NavigationListener) activity).onRequestDiscovery(false);
+                ((NavigationListener) activity).onRequestDiscovery(Hitpay.simulated);
             }
         });
 

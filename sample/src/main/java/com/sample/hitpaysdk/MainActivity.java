@@ -1,17 +1,24 @@
 package com.sample.hitpaysdk;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,16 +29,22 @@ import com.hit_pay.hitpay.ClientAPI.HitPayRefundListener;
 import com.hit_pay.hitpay.ClientAPI.HitPayTerminalChargeListener;
 import com.hit_pay.hitpay.ClientAPI.HitPayTerminalListener;
 import com.hit_pay.hitpay.ClientAPI.Hitpay;
+import com.hit_pay.hitpay.Managers.AppManager;
 import com.hit_pay.hitpay.Util.HitpayUtil;
+import com.hit_pay.hitpay.activity.SignUpPage2Activity;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements HitPayAuthenticationListener, HitPayTerminalListener, HitPayTerminalChargeListener, HitPayPayNowChargeListener, HitPayRefundListener {
     private static final int REQUEST_CODE_LOCATION = 1;
     private ProgressDialog progressDialog;
+    private SwitchCompat simulated_switch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Hitpay.init(this);
         Hitpay.setHitPayAuthenticationListener(this);
         Hitpay.setHitPayTerminalListener(this);
@@ -47,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
             }
         });
 
+        simulated_switch = findViewById(R.id.simulated_switch);
         Button connectTerminal = findViewById(R.id.btn_connect_terminal);
         connectTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
                     if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
+                        Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
                         Hitpay.initiateTerminalSetup();
                     }
                 } else {
@@ -76,15 +91,34 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         btnMakeTerminalPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (Hitpay.isTerminalConnectted()) {
-                   progressDialog = new ProgressDialog(MainActivity.this);
-                   progressDialog.setMessage("Please insert card to charging...");
-                   progressDialog.setCancelable(false);
-                   progressDialog.show();
-                   Hitpay.makeTerminalPayment("10.0", "SGD");
-               } else {
-                   Toast.makeText(MainActivity.this, "Please connect terminal first", Toast.LENGTH_SHORT).show();
-               }
+                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_amount, null);
+                dialogBuilder.setView(dialogView);
+                EditText edtAmount = (EditText) dialogView.findViewById(R.id.edt_amount);
+                Button btnPay = (Button) dialogView.findViewById(R.id.btn_pay);
+                AlertDialog alertDialog = dialogBuilder.create();
+
+                btnPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (edtAmount.getText().toString().length() > 0) {
+                            if (Hitpay.isTerminalConnectted()) {
+                                progressDialog = new ProgressDialog(MainActivity.this);
+                                progressDialog.setMessage("Charging...");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+                                Hitpay.makeTerminalPayment(edtAmount.getText().toString(), "SGD");
+                                alertDialog.dismiss();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Please connect terminal first", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Please enter amount", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -92,7 +126,32 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         btnMakePayNowPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Hitpay.makePayNowPayment("10.0", "SGD");
+                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_amount, null);
+                dialogBuilder.setView(dialogView);
+                EditText edtAmount = (EditText) dialogView.findViewById(R.id.edt_amount);
+                Button btnPay = (Button) dialogView.findViewById(R.id.btn_pay);
+                AlertDialog alertDialog = dialogBuilder.create();
+
+                btnPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (edtAmount.getText().toString().length() > 0) {
+                            progressDialog = new ProgressDialog(MainActivity.this);
+                            progressDialog.setMessage("Charging...");
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
+                            Hitpay.makePayNowPayment(edtAmount.getText().toString(), "SGD");
+                            alertDialog.dismiss();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Please enter amount", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                alertDialog.show();
+
             }
         });
 
@@ -100,13 +159,35 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         btnRefund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Hitpay.refundCharge("charge_id");
+
+                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_refund, null);
+                dialogBuilder.setView(dialogView);
+                EditText edtChargeId = (EditText) dialogView.findViewById(R.id.edt_charge_id);
+                Button btnRefund = (Button) dialogView.findViewById(R.id.btn_refund);
+                AlertDialog alertDialog = dialogBuilder.create();
+
+                btnRefund.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Refunding...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                        Hitpay.refundCharge(edtChargeId.getText().toString());
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
             }
         });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_LOCATION) {
             if (grantResults.length > 0
@@ -118,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
                     return;
                 }
                 if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
+                    Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
                     Hitpay.initiateTerminalSetup();
                 }
             } else {
@@ -125,57 +207,64 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
             }
         }
     }
+
     @Override
     public void authenticationCompleted(boolean status) {
         if (status) {
-            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Login Successful");
         } else {
-            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Login Failed");
         }
     }
 
     @Override
     public void setupCompleted(boolean status) {
         if (status) {
-            Toast.makeText(MainActivity.this, "Connect Reader Successful", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Connect Reader Successful");
         } else {
-            Toast.makeText(MainActivity.this, "Connect Reader Failed", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Connect Reader Failed");
         }
     }
 
     @Override
-    public void chargeCompleted(boolean status) {
+    public void chargeTerminalCompleted(boolean status, String chargeId) {
         if (progressDialog.isShowing()) progressDialog.dismiss();
         if (status) {
-            Toast.makeText(MainActivity.this, "Charge Successful", Toast.LENGTH_SHORT).show();
+            @SuppressLint("WrongConstant") ClipboardManager clipboard = (ClipboardManager) MainActivity.this.getSystemService("clipboard");
+            ClipData clip = ClipData.newPlainText("chargeId", chargeId);
+            clipboard.setPrimaryClip(clip);
+            AppManager.showErrorAlert(MainActivity.this, "Charge Successful", "Charge Id:\n" + chargeId + ". Copied to clipboard");
         } else {
-            Toast.makeText(MainActivity.this, "Charge Failed", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Charge Failed");
         }
     }
 
     @Override
-    public void chargePayNowCompleted(boolean status) {
-        findViewById(R.id.ln_qr_paynow).setVisibility(View.GONE);
+    public void chargePayNowCompleted(boolean status, String chargeId) {
+        if (progressDialog.isShowing()) progressDialog.dismiss();
         if (status) {
-            Toast.makeText(MainActivity.this, "Charge Successful", Toast.LENGTH_SHORT).show();
+            @SuppressLint("WrongConstant") ClipboardManager clipboard = (ClipboardManager) MainActivity.this.getSystemService("clipboard");
+            ClipData clip = ClipData.newPlainText("chargeId", chargeId);
+            clipboard.setPrimaryClip(clip);
+            AppManager.showErrorAlert(MainActivity.this, "Charge Successful", "Charge Id:\n" + chargeId + ". Copied to clipboard");
         } else {
-            Toast.makeText(MainActivity.this, "Charge Failed", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Timed Out");
         }
 
     }
 
     @Override
     public void onQRUrlReturn(String url) {
-        findViewById(R.id.ln_qr_paynow).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.tv_qr_paynow)).setText(url);
+        AppManager.showErrorAlert(MainActivity.this, "QR CODE", url);
     }
 
     @Override
     public void refundCompleted(boolean status) {
+        if (progressDialog.isShowing()) progressDialog.dismiss();
         if (status) {
-            Toast.makeText(MainActivity.this, "Refund Successful", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Refund Successful");
         } else {
-            Toast.makeText(MainActivity.this, "Refund Failed", Toast.LENGTH_SHORT).show();
+            AppManager.showNormalAlert(MainActivity.this, "Refund Failed");
         }
     }
 }

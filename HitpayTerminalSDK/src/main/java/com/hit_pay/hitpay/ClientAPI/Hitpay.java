@@ -42,6 +42,7 @@ public class Hitpay {
     // add a private listener variable
     public static HitPayAuthenticationListener hitPayAuthenticationListener = null;
     public static HitPayTerminalListener hitPayTerminalListener = null;
+    public static boolean simulated = false;
     public static HitPayTerminalChargeListener hitPayTerminalChargeListener = null;
     public static HitPayPayNowChargeListener hitPayPayNowChargeListener = null;
     public static HitPayRefundListener hitPayRefundListener = null;
@@ -73,6 +74,10 @@ public class Hitpay {
 
     public static void initiateAuthentication() {
         mContect.startActivity(new Intent(mContect, HitPayLoginPageActivity.class));
+    }
+
+    public static void setSimulatedTerminal(boolean simulated) {
+        Hitpay.simulated = simulated;
     }
 
     public static void initiateTerminalSetup() {
@@ -144,7 +149,7 @@ public class Hitpay {
                                                 Terminal.getInstance().processPayment(paymentIntent, new PaymentIntentCallback() {
                                                     @Override
                                                     public void onSuccess(@NotNull PaymentIntent paymentIntent) {
-                                                        chargeTerminalPayment(orderId, amount, currency);
+                                                        chargeTerminalPayment(chargeId, orderId, amount, currency);
                                                     }
 
                                                     @Override
@@ -181,7 +186,7 @@ public class Hitpay {
         });
     }
 
-    private static void chargeTerminalPayment(String orderId, String amount, String currency) {
+    private static void chargeTerminalPayment(String chargeId, String orderId, String amount, String currency) {
         new HitPayAPI(mContect).chargeTerminal(orderId, "stripe", amount, "", currency, new OnComplete<JSONObject>() {
             @Override
             public void done(final JSONObject response, final String errorMessage) {
@@ -191,7 +196,7 @@ public class Hitpay {
                         if (errorMessage != null) {
                             AppManager.showErrorAlert(mContect, errorMessage);
                         } else {
-                            showDoneTerminalScreen();
+                            showDoneTerminalScreen(chargeId);
                             try {
                                 JSONObject jsCharges = response.getJSONObject("charges");
                                 JSONObject jsData = jsCharges.getJSONArray("data").getJSONObject(0);
@@ -210,15 +215,15 @@ public class Hitpay {
         });
     }
 
-    private static void showDoneTerminalScreen() {
+    private static void showDoneTerminalScreen(String chargeId) {
         if (Hitpay.hitPayTerminalChargeListener != null) {
-            Hitpay.hitPayTerminalChargeListener.chargeCompleted(true);
+            Hitpay.hitPayTerminalChargeListener.chargeTerminalCompleted(true, chargeId);
         }
     }
 
     private static void showFailTerminalScreen() {
         if (Hitpay.hitPayTerminalChargeListener != null) {
-            Hitpay.hitPayTerminalChargeListener.chargeCompleted(false);
+            Hitpay.hitPayTerminalChargeListener.chargeTerminalCompleted(false, "");
         }
     }
 
@@ -318,7 +323,7 @@ public class Hitpay {
                                             countDownTimer.cancel();
                                             isStop = true;
                                             thread.interrupt();
-                                            showDonePayNowScreen();
+                                            showDonePayNowScreen(chargeId);
                                         }
                                     });
                                 } else if (status.equals("failed") || status.equals("canceled")) {
@@ -355,15 +360,15 @@ public class Hitpay {
         });
     }
 
-    private static void showDonePayNowScreen() {
+    private static void showDonePayNowScreen(String chargeId) {
         if (Hitpay.hitPayPayNowChargeListener != null) {
-            Hitpay.hitPayPayNowChargeListener.chargePayNowCompleted(true);
+            Hitpay.hitPayPayNowChargeListener.chargePayNowCompleted(true, chargeId);
         }
     }
 
     private static void showFailPayNowScreen() {
         if (Hitpay.hitPayPayNowChargeListener != null) {
-            Hitpay.hitPayPayNowChargeListener.chargePayNowCompleted(false);
+            Hitpay.hitPayPayNowChargeListener.chargePayNowCompleted(false, "");
         }
     }
 
