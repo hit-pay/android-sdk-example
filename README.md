@@ -69,15 +69,14 @@ if (BluetoothAdapter.getDefaultAdapter() != null &&
                     BluetoothAdapter.getDefaultAdapter().enable();
                 }
 
-// Enable or disable terminal simulation.
- Hitpay.setSimulatedTerminal(true);
+// Enable or disable terminal simulation, default is disable.
+ Hitpay.setSimulatedTerminal(true/false);
 
 // Check for location permissions and setup
 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
                     if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
-                        Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
                         Hitpay.initiateTerminalSetup();
                     }
                 }
