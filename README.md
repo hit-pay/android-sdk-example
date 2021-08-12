@@ -37,10 +37,10 @@ allprojects {
 
     }
 }
+```
 
----------------------------------------------------------------------------------------
-
-// App build.gradle:
+```ruby
+// app build.gradle:
 android {
   buildFeatures {
           dataBinding true
@@ -49,7 +49,7 @@ android {
 dependencies {
     implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.1'
 }
-//
+
 ```
 
 ### Authentication
