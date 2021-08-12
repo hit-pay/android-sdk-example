@@ -26,7 +26,7 @@ HitPay-Android-SDK is available through [Maven](https://repo1.maven.org/maven2/)
 it, simply add the following line to your Podfile:
 
 ```ruby
-// Top-level build gradle:
+// Top-level build.gradle:
 
 allprojects {
     repositories {
@@ -38,7 +38,9 @@ allprojects {
     }
 }
 
-// App Gradle:
+---------------------------------------------------------------------------------------
+
+// App build.gradle:
 android {
   buildFeatures {
           dataBinding true
