@@ -25,9 +25,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 HitPay-Android-SDK is available through [Maven](https://repo1.maven.org/maven2/). To install
 it, simply add the following line to your Podfile:
 
-```ruby
-// Top-level build.gradle:
+1. Add to Top-level build.gradle:
 
+```ruby
 allprojects {
     repositories {
         ...
@@ -39,8 +39,8 @@ allprojects {
 }
 ```
 
+2. Add to app build.gradle:
 ```ruby
-// app build.gradle:
 android {
   buildFeatures {
           dataBinding true
