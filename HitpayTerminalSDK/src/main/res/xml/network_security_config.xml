@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <domain-config>
-        <domain includeSubdomains="true">api.hit-pay.com</domain>
-        <pin-set expiration="2031-01-01">
-            <pin digest="SHA-256">u4Ip5dqwvpMavCrSTR+VPPNGC5y3bJYDrtmHOX4i0aQ=</pin>
-        </pin-set>
-    </domain-config>
-</network-security-config>

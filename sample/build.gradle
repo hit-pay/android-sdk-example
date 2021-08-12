@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
 }
 
+
 android {
     compileSdkVersion 29
     useLibrary 'org.apache.http.legacy'
@@ -67,6 +68,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Hitpay
-    implementation project(path: ':HitpayTerminalSDK')
-    annotationProcessor "com.android.databinding:compiler:3.1.4"
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.1'
 }

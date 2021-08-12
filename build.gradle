@@ -16,6 +16,7 @@ allprojects {
         //Hitpay
         maven { url 'https://jitpack.io' }
         maven { url 'https://d37ugbyn3rpeym.cloudfront.net/terminal/android-betas' }
+
     }
 }
 
