@@ -125,4 +125,4 @@ Author: 1bannamgiauten
 
 ## License
 
-HitPay-iOS-SDK is available under the MIT license. See the LICENSE file for more info.
+HitPay-Android-SDK is available under the MIT license. See the LICENSE file for more info.
