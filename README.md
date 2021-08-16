@@ -47,7 +47,7 @@ android {
        }
 }
 dependencies {
-    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.1'
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.2'
 }
 
 ```
