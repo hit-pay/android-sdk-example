@@ -9,7 +9,7 @@ This Android SDK is specifically designed for Point-of-Sales apps that wish to i
 NOTE: If you are looking for online payment acceptance please refer to these REST API [docs](https://hit-pay.com/docs.html)
 
 ## Example App
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and open example app to android studio then run app.
 
 ## Functionality
 
@@ -47,7 +47,7 @@ android {
        }
 }
 dependencies {
-    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.2'
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.4'
 }
 
 ```
