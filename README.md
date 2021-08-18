@@ -62,6 +62,14 @@ Hitpay.setHitPayAuthenticationListener(this);
 
 ```
 
+### Set Environment
+
+```java
+//To set production environment set it = true, sandbox set it = false, defalt is true (production)
+Hitpay.setEnv(true/false);
+
+```
+
 ### **Connect Card Reader**
 
 ```java
