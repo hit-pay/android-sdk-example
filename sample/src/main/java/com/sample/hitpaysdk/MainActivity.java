@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         setContentView(R.layout.activity_main);
 
         Hitpay.init(this);
+        Hitpay.setEnv(false);
         Hitpay.setHitPayAuthenticationListener(this);
         Hitpay.setHitPayTerminalListener(this);
         Hitpay.setHitPayTerminalChargeListener(this);
@@ -218,11 +219,11 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
     }
 
     @Override
-    public void setupCompleted(boolean status) {
+    public void setupCompleted(boolean status, String message) {
         if (status) {
             AppManager.showNormalAlert(MainActivity.this, "Connect Reader Successful");
         } else {
-            AppManager.showNormalAlert(MainActivity.this, "Connect Reader Failed");
+            AppManager.showNormalAlert(MainActivity.this, message);
         }
     }
 
