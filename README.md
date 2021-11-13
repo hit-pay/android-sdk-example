@@ -47,7 +47,7 @@ android {
        }
 }
 dependencies {
-    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.4'
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.5'
 }
 
 ```
@@ -59,6 +59,9 @@ Hitpay.initiateAuthentication()
 
 // To get authentication listener: 
 Hitpay.setHitPayAuthenticationListener(this);
+
+// Sign out
+HitPay.signOut()
 
 ```
 
@@ -102,7 +105,10 @@ Hitpay.setHitPayTerminalListener(this);
 ```java
 Hitpay.makeTerminalPayment(amount: amount, currency: "sgd");
 
- // To get Terminal Charge listener: 
+// Cancel current terminal payment, 
+HitPay.cancelTerminalPayment()
+
+ // To get Terminal Charge listener: chargeTerminalCompleted(), cancelTerminalPayment()
 Hitpay.setHitPayTerminalChargeListener(this);
 
 ```
@@ -110,8 +116,11 @@ Hitpay.setHitPayTerminalChargeListener(this);
 ### Accept PayNow QR
 
 ```java
-Hitpay.makePayNowPayment(amount: amount, currency: "sgd");
-
+Hitpay.makePayNowPayment(amount: amount, currency: "sgd", , generateImage: true);
+// "qrCode" represents the string value of the QRCode to be displayed.
+// "qrImage" represents UIImage of the QRCode if generateImage set to true
+  
+  
  // To get Terminal Charge listener: 
 Hitpay.setHitPayPayNowChargeListener(this);
 
