@@ -61,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
             }
         });
 
+        Button hitpayLogout = findViewById(R.id.btn_logout);
+        hitpayLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Hitpay.signOut();
+                Toast.makeText(MainActivity.this, "Logout success", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         simulated_switch = findViewById(R.id.simulated_switch);
         Button connectTerminal = findViewById(R.id.btn_connect_terminal);
         connectTerminal.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
                             progressDialog.setMessage("Charging...");
                             progressDialog.setCancelable(false);
                             progressDialog.show();
-                            Hitpay.makePayNowPayment(edtAmount.getText().toString(), "SGD");
+                            Hitpay.makePayNowPayment(edtAmount.getText().toString(), "SGD", true);
                             alertDialog.dismiss();
                         } else {
                             Toast.makeText(MainActivity.this, "Please enter amount", Toast.LENGTH_SHORT).show();
@@ -237,6 +246,16 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
             AppManager.showErrorAlert(MainActivity.this, "Charge Successful", "Charge Id:\n" + chargeId + ". Copied to clipboard");
         } else {
             AppManager.showNormalAlert(MainActivity.this, "Charge Failed");
+        }
+    }
+
+    @Override
+    public void cancelTerminalPayment(boolean status) {
+        if (progressDialog.isShowing()) progressDialog.dismiss();
+        if (status) {
+            AppManager.showNormalAlert(MainActivity.this, "Cancel Terminal Payment Successful");
+        } else {
+            AppManager.showNormalAlert(MainActivity.this, "Cancel Terminal Payment Failed");
         }
     }
 

@@ -68,5 +68,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Hitpay
-    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.4'
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.5'
 }
