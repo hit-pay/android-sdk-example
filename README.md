@@ -98,6 +98,7 @@ if (Build.VERSION.SDK_INT >= 31) {
 Hitpay.setHitPayTerminalListener(this);
 
 
+------------------------------------------------------------------------------------------
 
  private void requestPermissionsIfNecessarySdkBelow31() {
         // Check for location permissions
