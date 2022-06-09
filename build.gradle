@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
+        classpath 'com.dipien:bye-bye-jetifier:1.2.1'
     }
 }
 

@@ -4,7 +4,7 @@ plugins {
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
     useLibrary 'org.apache.http.legacy'
 
     configurations {
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.sample.hitpaysdk"
         minSdkVersion 24
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -60,13 +60,13 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Hitpay
-    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.5'
+    implementation 'com.hit-pay.android:com.hitpay.terminalsdk:0.0.6'
 }

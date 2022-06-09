@@ -1,6 +1,9 @@
 package com.sample.hitpaysdk;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -14,7 +17,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +39,10 @@ import com.hit_pay.hitpay.Util.HitpayUtil;
 import com.hit_pay.hitpay.activity.SignUpPage2Activity;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements HitPayAuthenticationListener, HitPayTerminalListener, HitPayTerminalChargeListener, HitPayPayNowChargeListener, HitPayRefundListener {
     private static final int REQUEST_CODE_LOCATION = 1;
@@ -75,24 +84,10 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         connectTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Enable Bluetooth
-                if (BluetoothAdapter.getDefaultAdapter() != null &&
-                        !BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-                    BluetoothAdapter.getDefaultAdapter().enable();
-                }
-
-                // Check for location permissions
-                if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
-                    if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
-                        Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
-                        Hitpay.initiateTerminalSetup();
-                    }
+                if (Build.VERSION.SDK_INT >= 31) {
+                    requestPermissionsIfNecessarySdk31();
                 } else {
-                    // If we don't have them yet, request them before doing anything else
-                    final String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH};
-                    ActivityCompat.requestPermissions(MainActivity.this, permissions, REQUEST_CODE_LOCATION);
+                    requestPermissionsIfNecessarySdkBelow31();
                 }
             }
         });
@@ -195,25 +190,102 @@ public class MainActivity extends AppCompatActivity implements HitPayAuthenticat
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_LOCATION) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
-                    Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
-                    Hitpay.initiateTerminalSetup();
+    private void requestPermissionsIfNecessarySdkBelow31() {
+        // Check for location permissions
+        if (!isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // If we don't have them yet, request them before doing anything else
+            final String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+            requestPermissionLauncher.launch(permissions);
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+                    == PackageManager.PERMISSION_GRANTED
+            ) {
+                final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (adapter != null && !adapter.isEnabled()) {
+                    adapter.enable();
                 }
             } else {
-                Toast.makeText(MainActivity.this, "Permission denied", Toast.LENGTH_LONG).show();
+                Log.w(getClass().getSimpleName(), "Failed to acquire Bluetooth permission");
+            }
+            if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
+                Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
+                Hitpay.initiateTerminalSetup();
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private void requestPermissionsIfNecessarySdk31() {
+        // Check for location and bluetooth permissions
+        List<String> deniedPermissions = new ArrayList<>();
+        if (!isGranted(Manifest.permission.ACCESS_FINE_LOCATION))
+            deniedPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        if (!isGranted(Manifest.permission.BLUETOOTH_CONNECT))
+            deniedPermissions.add(Manifest.permission.BLUETOOTH_CONNECT);
+        if (!isGranted(Manifest.permission.BLUETOOTH_SCAN))
+            deniedPermissions.add(Manifest.permission.BLUETOOTH_SCAN);
+
+        if (!deniedPermissions.isEmpty()) {
+            // If we don't have them yet, request them before doing anything else
+            String[] deniedPermissionsArray = new String[deniedPermissions.size()];
+            deniedPermissionsArray = deniedPermissions.toArray(deniedPermissionsArray);
+            requestPermissionLauncher.launch(deniedPermissionsArray);
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+                    == PackageManager.PERMISSION_GRANTED
+            ) {
+                final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (adapter != null && !adapter.isEnabled()) {
+                    adapter.enable();
+                }
+            } else {
+                Log.w(getClass().getSimpleName(), "Failed to acquire Bluetooth permission");
+            }
+            if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
+                Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
+                Hitpay.initiateTerminalSetup();
+            }
+        }
+    }
+
+    // Register the permissions callback to handles the response to the system permissions dialog.
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(),
+            this::onActivityResult
+    );
+
+    private boolean isGranted(String permission) {
+        return ContextCompat.checkSelfPermission(
+                this,
+                permission
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Receive the result of our permissions check, and initialize if we can
+     */
+    private void onActivityResult(Map<String, Boolean> result) {
+        List<String> deniedPermissions = new ArrayList<>();
+        for (Map.Entry<String, Boolean> entry : result.entrySet()) {
+            if (!entry.getValue()) {
+                deniedPermissions.add(entry.getKey());
+            }
+        }
+
+        if (deniedPermissions.isEmpty()) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+                    == PackageManager.PERMISSION_GRANTED
+            ) {
+                final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (adapter != null && !adapter.isEnabled()) {
+                    adapter.enable();
+                }
+            } else {
+                Log.w(getClass().getSimpleName(), "Failed to acquire Bluetooth permission");
+            }
+            if (Hitpay.verifyGpsEnabled(MainActivity.this)) {
+                Hitpay.setSimulatedTerminal(simulated_switch.isChecked());
+                Hitpay.initiateTerminalSetup();
             }
         }
     }
