@@ -84,13 +84,6 @@ Hitpay.setEnv(true/false);
 
 ```java
 
-// Check for location permissions and setup
-if (Build.VERSION.SDK_INT >= 31) {
-                    requestPermissionsIfNecessarySdk31();
-                } else {
-                    requestPermissionsIfNecessarySdkBelow31();
-                }
-
 // Enable or disable terminal simulation, default is disable.
 Hitpay.setSimulatedTerminal(true/false);
 
