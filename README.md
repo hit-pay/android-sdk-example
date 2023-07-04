@@ -1,4 +1,6 @@
-# HitPay Android SDK (Point-Of-Sale Only)
+# NOTE: This repo is deprecated. Please use the new [REST APIs](https://docs.hitpayapp.com/docs/in-person-payments)
+
+## HitPay Android SDK (Point-Of-Sale Only)
 
 [![License](https://img.shields.io/cocoapods/l/HitPay-iOS-SDK.svg?style=flat)](https://github.com/hit-pay/android-sdk-example)
 
